@@ -1,0 +1,22 @@
+{
+  "clienteEnRedEnlace": true,
+  "fechaContratacion": 2024,
+  "fechaInicioSintomas": 2025,
+  "gastoHospitalario": 51330.01,
+  "deducible": 25000.0,
+  "deduciblePagado": true,
+  "enfermedadPosiblePreexistente": false,
+  "documentosAdjuntos": [
+    "Solicitud de reclamación Red Enlace",
+    "Identificación oficial",
+    "Corte de caja",
+    "Informe Médico",
+    "Estado de cuenta del contratante",
+    "Finiquito de la aseguradora primaria"
+  ],
+  "paciente": "EMILIA ALCUDIA CORCHADO",
+  "medico": "INGRID SARAHI RUIZ LUNA",
+  "fechaAdmision": "2025-03-21",
+  "fechaSalida": "2025-03-24",
+  "responsable": "RICARDO ALCUDIA YANIZ"
+}

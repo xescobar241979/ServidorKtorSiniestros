@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Red Enlace | Subir Documentos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .logo {
+      width: 180px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 22px;
+      color: #003366;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 6px;
+      text-align: left;
+    }
+
+    input[type="text"],
+    input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 15px;
+    }
+
+    small {
+      display: block;
+      margin-top: -10px;
+      margin-bottom: 15px;
+      font-size: 12px;
+      color: #666;
+      text-align: left;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #004aad;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #003d91;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <!-- LOGO -->
+  <img src="/static/logo-red-enlace.png" alt="Red Enlace" class="logo" />
+
+  <!-- FORMULARIO -->
+  <h1>Subir Archivos del Siniestro</h1>
+  <form method="post" enctype="multipart/form-data" action="http://localhost:8080/upload">
+    <label for="siniestroId">ID del Siniestro:</label>
+    <input type="text" id="siniestroId" name="siniestroId" required />
+
+    <label for="files">Selecciona los documentos:</label>
+    <input type="file" id="files[]" name="files" multiple accept=".pdf,.jpg,.jpeg,.png" required />
+    <small>Formatos aceptados: PDF, JPG, PNG</small>
+
+    <button type="submit">Subir Archivos</button>
+  </form>
+</div>
+</body>
+</html>
+
