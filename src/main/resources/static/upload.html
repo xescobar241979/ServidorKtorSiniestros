@@ -69,31 +69,50 @@
       cursor: pointer;
       font-weight: bold;
       width: 100%;
+      margin-bottom: 10px;
     }
 
     button:hover {
       background-color: #003d91;
     }
+
+    .add-btn {
+      background-color: #ccc;
+      color: #003366;
+      margin-top: -5px;
+    }
   </style>
 </head>
 <body>
 <div class="container">
-  <!-- LOGO -->
   <img src="/static/logo-red-enlace.png" alt="Red Enlace" class="logo" />
-
-  <!-- FORMULARIO -->
   <h1>Subir Archivos del Siniestro</h1>
   <form method="post" enctype="multipart/form-data" action="/upload">
-  <label for="siniestroId">ID del Siniestro:</label>
+    <label for="siniestroId">ID del Siniestro:</label>
     <input type="text" id="siniestroId" name="siniestroId" required />
 
     <label for="files">Selecciona los documentos:</label>
-    <input type="file" id="files[]" name="files" multiple accept=".pdf,.jpg,.jpeg,.png" required />
+    <input type="file" name="files" required />
+    <div id="more-files"></div>
+
+    <button type="button" class="add-btn" onclick="addFileInput()">+ Agregar otro archivo</button>
     <small>Formatos aceptados: PDF, JPG, PNG</small>
 
     <button type="submit">Subir Archivos</button>
   </form>
 </div>
+
+<script>
+  function addFileInput() {
+    const container = document.getElementById('more-files');
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.name = 'files';
+    input.accept = '.pdf,.jpg,.jpeg,.png';
+    input.required = false;
+    input.style.marginBottom = '15px';
+    container.appendChild(input);
+  }
+</script>
 </body>
 </html>
-
