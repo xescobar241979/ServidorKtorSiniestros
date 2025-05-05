@@ -13,35 +13,30 @@
       height: 100vh;
       margin: 0;
     }
-
     .container {
       background-color: #fff;
       padding: 30px 40px;
       border-radius: 12px;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-      max-width: 400px;
+      max-width: 500px;
       width: 100%;
       text-align: center;
     }
-
     .logo {
       width: 180px;
       margin-bottom: 20px;
     }
-
     h1 {
       font-size: 22px;
       color: #003366;
       margin-bottom: 20px;
     }
-
     label {
       font-weight: bold;
       display: block;
       margin-bottom: 6px;
       text-align: left;
     }
-
     input[type="text"],
     input[type="file"] {
       width: 100%;
@@ -50,7 +45,6 @@
       border-radius: 6px;
       margin-bottom: 15px;
     }
-
     small {
       display: block;
       margin-top: -10px;
@@ -59,7 +53,6 @@
       color: #666;
       text-align: left;
     }
-
     button {
       padding: 10px 20px;
       background-color: #004aad;
@@ -71,48 +64,107 @@
       width: 100%;
       margin-bottom: 10px;
     }
-
     button:hover {
       background-color: #003d91;
     }
-
-    .add-btn {
-      background-color: #ccc;
-      color: #003366;
-      margin-top: -5px;
+    pre#resultado {
+      background: #f4f4f4;
+      padding: 10px;
+      border-radius: 6px;
+      text-align: left;
+      font-size: 14px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 250px;
+      overflow-y: auto;
+      margin-top: 20px;
     }
+    .success { color: green; }
+    .error { color: red; }
+    .pendiente { color: orange; }
   </style>
 </head>
 <body>
 <div class="container">
   <img src="/static/logo-red-enlace.png" alt="Red Enlace" class="logo" />
   <h1>Subir Archivos del Siniestro</h1>
-  <form method="post" enctype="multipart/form-data" action="/upload">
+  <form id="formulario" enctype="multipart/form-data">
     <label for="siniestroId">ID del Siniestro:</label>
-    <input type="text" id="siniestroId" name="siniestroId" required />
+    <input type="text" id="siniestroId" name="siniestroId" placeholder="Ej: SIN-123456" required />
 
-    <label for="files">Selecciona los documentos:</label>
-    <input type="file" name="files" required />
-    <div id="more-files"></div>
-
-    <button type="button" class="add-btn" onclick="addFileInput()">+ Agregar otro archivo</button>
-    <small>Formatos aceptados: PDF, JPG, PNG</small>
+    <label for="file">Selecciona los documentos:</label>
+    <input type="file" name="file" id="file" multiple accept=".pdf,.jpg,.jpeg,.png" required />
+    <small>Formatos aceptados: PDF, JPG, PNG (máx. 5 archivos)</small>
 
     <button type="submit">Subir Archivos</button>
   </form>
+
+  <pre id="resultado">🔔 Esperando carga de archivos...</pre>
 </div>
 
 <script>
-  function addFileInput() {
-    const container = document.getElementById('more-files');
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.name = 'files';
-    input.accept = '.pdf,.jpg,.jpeg,.png';
-    input.required = false;
-    input.style.marginBottom = '15px';
-    container.appendChild(input);
-  }
+  const form = document.getElementById("formulario");
+  const resultado = document.getElementById("resultado");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    resultado.textContent = "⏳ Procesando documentos...";
+    resultado.className = "";
+
+    const formData = new FormData();
+    const siniestroId = document.getElementById("siniestroId").value.trim();
+    const filesInput = document.getElementById("files");
+    const files = filesInput.files;
+
+    if (!siniestroId) {
+      alert("Por favor ingresa un ID de siniestro.");
+      return;
+    }
+
+    if (files.length === 0) {
+      alert("Por favor selecciona al menos un archivo.");
+      return;
+    }
+
+    for (let i = 0; i < files.length; i++) {
+      formData.append("files", files[i]);
+    }
+    formData.append("siniestroId", siniestroId);
+
+    try {
+      const response = await fetch("/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const contentType = response.headers.get("content-type");
+      const isJSON = contentType && contentType.includes("application/json");
+      const data = isJSON ? await response.json() : await response.text();
+
+      console.log("📥 Respuesta del servidor:", data);
+
+      if (typeof data === "object" && data.razon) {
+        let clase = "pendiente";
+        if (data.procede === "true") clase = "success";
+        if (data.procede === "false") clase = "error";
+
+        resultado.className = clase;
+
+        let texto = data.razon;
+        if (Array.isArray(data.detalles) && data.detalles.length > 0) {
+          texto += "\n\n📋 Detalles:\n" + data.detalles.join("\n");
+        }
+        resultado.textContent = texto;
+      } else {
+        resultado.className = "error";
+        resultado.textContent = typeof data === "string" ? data : JSON.stringify(data, null, 2);
+      }
+
+    } catch (err) {
+      resultado.className = "error";
+      resultado.textContent = "❌ Error al subir los archivos:\n" + err.message;
+    }
+  });
 </script>
 </body>
 </html>

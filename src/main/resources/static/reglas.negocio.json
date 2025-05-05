@@ -1,0 +1,75 @@
+[
+  {
+    "nombre": "Nombre de asegurado",
+    "descripcion": "El nombre del asegurado debe coincidir con el del certificado",
+    "condicion": {
+      "campo1": "paciente",
+      "operador": "==",
+      "campo2": "pacienteCertificado",
+      "tipo": "texto"
+    },
+    "resultado": {
+      "estado": "rechazado",
+      "razon": "❌ El nombre del asegurado no coincide con el certificado"
+    }
+  },
+  {
+    "nombre": "Documentos faltantes",
+    "descripcion": "Validar que estén los documentos mínimos requeridos",
+    "condicion": {
+      "tipo": "documentosFaltantes",
+      "requeridos": [
+        "Solicitud de reclamación",
+        "Identificación oficial",
+        "Corte de caja",
+        "Informe Médico",
+        "Estado de cuenta",
+        "Finiquito",
+        "Certificado"
+      ]
+    },
+    "resultado": {
+      "estado": "pendiente",
+      "razon": "⚠️ Documentos clave no adjuntados"
+    }
+  },
+  {
+    "nombre": "Fecha anterior a contratación",
+    "descripcion": "La fecha de síntomas no puede ser antes de la contratación",
+    "condicion": {
+      "campo1": "fechaInicioSintomas",
+      "operador": "<",
+      "campo2": "fechaContratacion",
+      "tipo": "fecha"
+    },
+    "resultado": {
+      "estado": "rechazado",
+      "razon": "❌ El padecimiento es previo a la contratación"
+    }
+  },
+  {
+    "nombre": "Deducible alcanzado",
+    "descripcion": "El monto de deducible pagado debe ser mayor o igual al deducible contratado",
+    "condicion": {
+      "campo1": "deducible",
+      "operador": "<=",
+      "campo2": "montoDeduciblePagado",
+      "tipo": "numero"
+    },
+    "resultado": {
+      "estado": "aprobado",
+      "razon": "✅ El deducible pagado alcanza el deducible contratado"
+    }
+  },
+  {
+    "nombre": "Periodo de espera",
+    "descripcion": "Validar si el padecimiento tiene periodo de espera",
+    "condicion": {
+      "tipo": "periodoEspera"
+    },
+    "resultado": {
+      "estado": "rechazado",
+      "razon": "❌ El padecimiento tiene periodo de espera aún no cumplido"
+    }
+  }
+]

@@ -1,0 +1,61 @@
+{
+  "Certificado": [
+    "nombre clientes",
+    "inicio de vigencia",
+    "% deducible a regresar",
+    "antigüedad red enlace",
+    "deducible",
+    "deducible poliza primaria",
+    "beneficios adicionales",
+    "devolucion de coaseguro",
+    "% de devolucion de coaseguro",
+    "fecha de nacimiento"
+  ],
+  "Corte de caja": [
+    "fecha de emision",
+    "nombre del paciente",
+    "importe del deducible",
+    "importe del coaseguro"
+  ],
+  "Informe Médico": [
+    "nombre del paciente",
+    "fecha en que se atendio por primera vez",
+    "padecimiento actual",
+    "fecha de inicio de principales signos y sintomas",
+    "tiempo de evolucion",
+    "tipo de padecimiento",
+    "diagnóstico",
+    "fecha de diagnostico",
+    "fecha de inicio de tratamiento",
+    "nombre del médico",
+    "fecha de síntomas"
+  ],
+  "Solicitud de reclamación": [
+    "nombre del paciente",
+    "total de gastos",
+    "cuenta clabe",
+    "banco",
+    "mail"
+  ],
+  "Estado de cuenta": [
+    "nombre del titular",
+    "numero de cuenta",
+    "banco"
+  ],
+  "Finiquito": [
+    "diagnostico",
+    "aseguradora",
+    "numero de siniestro",
+    "asegurado",
+    "nombre del paciente",
+    "fecha de nacimiento",
+    "causa del internamiento",
+    "deducible",
+    "coaseguro",
+    "fecha"
+  ],
+  "Identificacion Oficial": [
+    "nombre",
+    "curp"
+  ]
+}

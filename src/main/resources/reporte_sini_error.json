@@ -1,0 +1,28 @@
+{
+  "clienteEnRedEnlace": true,
+  "fechaContratacion": "2023-01-01",
+  "fechaInicioSintomas": "2024-03-10",
+  "gastoHospitalario": 60000.00,
+  "deducible": 25000.00,
+  "montoDeduciblePagado": 26000.00,
+  "deduciblePagado": true,
+  "enfermedadPosiblePreexistente": false,
+
+  "documentosAdjuntos": [
+    "Solicitud de reclamacion",
+    "Identificacion oficial",
+    "Corte de caja",
+    "Informe Medico",
+    "Estado de cuenta",
+    "Finiquito de la aseguradora",
+    "Certificado"
+  ],
+
+  "paciente": "EMILIA ALCUDIA CORCHADO",
+  "aseguradoCertificado": "EMILIA ALCUDIA CORCHADO",
+  "padecimiento": "cardiopatías",
+  "medico": "INGRID SARAHI RUIZ LUNA",
+  "fechaAdmision": "2024-03-11",
+  "fechaSalida": "2024-03-14",
+  "responsable": "RICARDO ALCUDIA YANIZ"
+}
