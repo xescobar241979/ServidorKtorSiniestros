@@ -19,3 +19,22 @@ EXPOSE 8080
 
 # Comando para ejecutar la app
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+# Etapa de construcción
+FROM eclipse-temurin:21-jdk AS builder
+
+WORKDIR /app
+COPY . .
+
+RUN ./gradlew shadowJar --no-daemon
+
+# Etapa de ejecución
+FROM eclipse-temurin:21-jdk
+
+WORKDIR /app
+COPY --from=builder /app/build/libs/*.jar app.jar
+
+EXPOSE 8080
+
+CMD ["java", "-jar", "app.jar"]
+
+
