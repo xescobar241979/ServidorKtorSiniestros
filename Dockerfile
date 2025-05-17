@@ -35,6 +35,7 @@ COPY --from=builder /app/build/libs/*.jar app.jar
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "app.jar"]
+CMD ["java", "-Dio.ktor.development=true", "-Dport=$PORT", "-jar", "app.jar"]
+
 
 
